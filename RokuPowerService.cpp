@@ -29,6 +29,8 @@
 #define WIN32_LEAN_AND_MEAN
 #include <winsock2.h>
 #include <windows.h>
+#include <fstream>  // Must be unconditional so std::wofstream is fully defined
+#include <iostream> // Must be unconditional so std::wcout is fully defined
 #include "ServiceInstaller.h"
 #include "ServiceHandler.h"
 #include "debugOutput.h"
