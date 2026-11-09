@@ -29,8 +29,8 @@ WakeRoku::WakeRoku()
 {
 	m_threadFlag = FALSE;
 
-	//start winsock, which must be done before any socket calls are made
-	WSAStarted = (0 == (WSAStartup(MAKEWORD(1,1), &wsaData)));  //winsock version 1.1
+	// Start winsock version 2.2, which is required for modern IP helper functions like InetPtonW
+	WSAStarted = (0 == (WSAStartup(MAKEWORD(2,2), &wsaData)));
 
 	m_WOLThreadStoppedEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 	if (m_WOLThreadStoppedEvent == NULL)
@@ -45,7 +45,6 @@ WakeRoku::WakeRoku()
 		throw GetLastError();
 	}
 	SetEvent(m_HTTPThreadStoppedEvent);
-
 }
 
 
