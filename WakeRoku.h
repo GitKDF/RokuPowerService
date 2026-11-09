@@ -9,7 +9,10 @@
 
 #pragma once
 
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #include <string>
 #include <atomic>
 
@@ -50,11 +53,6 @@ private:
 	HANDLE m_WOLThreadStoppedEvent;
 	HANDLE m_HTTPThreadStoppedEvent;
 
-	//static const int IPBufSize = 16;
-	//unsigned int m_destIP;
-	//unsigned int m_broadcastIP;
-	//char m_charDestIP[IPBufSize];
-	//char m_charBroadcastIP[IPBufSize];
 	struct sockaddr_in m_broadcastServer;
 	struct sockaddr_in m_destinationServer;
 	std::string m_powerOnString;
