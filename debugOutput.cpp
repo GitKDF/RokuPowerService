@@ -16,7 +16,7 @@
 
 void indentedDebugOutput(const char* outputBuf, int tabCount)
 {
-#ifdef _DEBUG
+#if defined(_DEBUG) || defined(ENABLE_FILE_LOGGING)
 	if (NULL == outputBuf) { return; }
 
 	if ('\0' != outputBuf[0]) {
@@ -52,7 +52,7 @@ void indentedDebugOutput(const char* outputBuf, int tabCount)
 
 void indentedDebugOutput(const wchar_t* outputBuf, int tabCount)
 {
-#ifdef _DEBUG
+#if defined(_DEBUG) || defined(ENABLE_FILE_LOGGING)
 	if (NULL == outputBuf) { return; }
 
 	if (L'\0' != outputBuf[0]) {
@@ -86,7 +86,7 @@ void indentedDebugOutput(const wchar_t* outputBuf, int tabCount)
 }
 
 void debugOutputTimestamp() {
-#ifdef _DEBUG
+#if defined(_DEBUG) || defined(ENABLE_FILE_LOGGING)
 	time_t rawtime;
 	struct tm timeInfo;
 	char timeBuf[26];
