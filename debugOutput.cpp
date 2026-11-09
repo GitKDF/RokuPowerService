@@ -12,6 +12,9 @@
 \***************************************************************************/
 
 
+#include <iostream>
+#include <ctime>
+#include <cstddef>
 #include "debugOutput.h"
 
 void indentedDebugOutput(const char* outputBuf, int tabCount)
