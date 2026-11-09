@@ -10,6 +10,11 @@ jobs:
   build:
     runs-on: windows-latest
 
+    strategy:
+      matrix:
+        configuration: [Release, Debug]
+        platform: [x64]
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
@@ -17,11 +22,11 @@ jobs:
     - name: Add MSBuild to Path
       uses: microsoft/setup-msbuild@v2
 
-    - name: Build Release x64
-      run: msbuild RokuPowerService.vcxproj /p:Configuration=Release /p:Platform=x64
+    - name: Build Solution (${{ matrix.configuration }} | ${{ matrix.platform }})
+      run: msbuild RokuPowerService.vcxproj /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }}
 
-    - name: Upload Artifact
+    - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: RokuPowerService-x64
-        path: Build/x64/Release/RokuPowerService.exe
+        name: RokuPowerService-${{ matrix.platform }}-${{ matrix.configuration }}
+        path: Build/${{ matrix.platform }}/${{ matrix.configuration }}/RokuPowerService.exe
