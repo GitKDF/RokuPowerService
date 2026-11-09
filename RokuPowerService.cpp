@@ -188,13 +188,16 @@ int wmain(int argc, wchar_t *argv[])
 	//proto-C scripting language that had no debugging functionality, and setting a global
 	//boolean and using a debugOutput subroutine was the only option, so I'm used to it.
 	#if defined(_DEBUG) || defined(ENABLE_FILE_LOGGING)
-		wchar_t workingPath[MAX_PATH];  //WCHAR filename buffer
-		GetModuleFileName(NULL, workingPath, MAX_PATH);  //get the binary's filename and path
-		std::wstring::size_type pos = std::wstring(workingPath).find_last_of(L"\\/");  //split the path from filename
-		std::wstring tmpFilePath = std::wstring(workingPath).substr(0, pos) + L"\\DebugOutput.txt";  //build new filename and path
-
-		out = std::wofstream(tmpFilePath);  //new stream to our DebugOutput.txt file
-		std::wcout.rdbuf(out.rdbuf()); //redirect std::cout to output text file
+		wchar_t workingPath[MAX_PATH];  
+		GetModuleFileNameW(NULL, workingPath, MAX_PATH);  
+		std::wstring::size_type pos = std::wstring(workingPath).find_last_of(L"\\/");  
+		std::wstring tmpFilePath = std::wstring(workingPath).substr(0, pos) + L"\\DebugOutput.txt";  
+	
+		// Open with explicit ios::out flag
+		out.open(tmpFilePath, std::ios::out);  
+		if (out.is_open()) {
+			std::wcout.rdbuf(out.rdbuf()); 
+		}
 	#endif
 
     if ((argc > 1) && ((*argv[1] == L'-' || (*argv[1] == L'/'))))
