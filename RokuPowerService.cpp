@@ -190,7 +190,7 @@ int wmain(int argc, wchar_t *argv[])
 	//I was able to use this to get things running fine.  I also spent a few years using a
 	//proto-C scripting language that had no debugging functionality, and setting a global
 	//boolean and using a debugOutput subroutine was the only option, so I'm used to it.
-	#ifdef _DEBUG
+	#if defined(_DEBUG) || defined(ENABLE_FILE_LOGGING)
 		wchar_t workingPath[MAX_PATH];  //WCHAR filename buffer
 		GetModuleFileName(NULL, workingPath, MAX_PATH);  //get the binary's filename and path
 		std::wstring::size_type pos = std::wstring(workingPath).find_last_of(L"\\/");  //split the path from filename
