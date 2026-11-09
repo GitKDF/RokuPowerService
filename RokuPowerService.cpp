@@ -26,6 +26,9 @@
 
 
 #pragma region Includes
+#define WIN32_LEAN_AND_MEAN
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #include <windows.h>
 #include "ServiceInstaller.h"
 #include "ServiceHandler.h"
@@ -39,7 +42,6 @@
 	#pragma comment( lib, "Shlwapi.lib" )
 #endif
 #pragma endregion
-
 // 
 // Settings of the service
 // 
