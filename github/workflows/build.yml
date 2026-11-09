@@ -1,0 +1,27 @@
+name: Build RokuPowerService
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Add MSBuild to Path
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Build Release x64
+      run: msbuild RokuPowerService.vcxproj /p:Configuration=Release /p:Platform=x64
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: RokuPowerService-x64
+        path: Build/x64/Release/RokuPowerService.exe
