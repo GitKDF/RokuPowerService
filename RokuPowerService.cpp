@@ -33,7 +33,7 @@
 #include "ServiceHandler.h"
 #include "debugOutput.h"
 
-#ifdef _DEBUG
+#if defined(_DEBUG) || defined(ENABLE_FILE_LOGGING)
 	std::wofstream out;
 	#include <Wtsapi32.h>
 	#include <Shlwapi.h>
