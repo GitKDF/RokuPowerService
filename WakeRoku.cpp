@@ -248,7 +248,7 @@ int WakeRoku::SendHTTPString(std::string &sendBuffer, BOOL UseWOL, int MaxRetrie
 		//added this loop in v3.1 since I've had once or twice that the box responded with 202 when coming alive from a WOL
 		//yet it never turned on with one keypress sent, sending a few has been reliable, no harm since they all instruct power ON
 		if (retryCounter > 1) debugOutput(L"\tResending HTTP Post due to '202 Accepted' response\n");
-		send(conn, &sendBuffer[0], sendBuffer.length(), 0);		//send buffer
+		send(conn, &sendBuffer[0], (int)sendBuffer.length(), 0);		//send buffer
 
 		//Receive data
 		//considered using a buffer here, but in trying to keep portable compiled exe size small, I'm trying to limit how much is #included in the release build
@@ -390,7 +390,7 @@ void WakeRoku::WakeOnLAN()
 //change made this obsolete, but I'm saving it as it should optimize out anyway and I might want it later
 int WakeRoku::WCHAR_TO_CHAR(wchar_t* in_char)
 {
-	size_t w_len = wcslen(in_char);  //get length of wchar string
+	size_t w_len = (int)wcslen(in_char);  //get length of wchar string
 	//get the buffer size needed (+1 for null terminator)
 	return WideCharToMultiByte(CP_ACP, 0, in_char, w_len, NULL, 0, NULL, NULL) + 1;
 }
@@ -399,6 +399,6 @@ int WakeRoku::WCHAR_TO_CHAR(wchar_t* in_char)
 void WakeRoku::WCHAR_TO_CHAR(wchar_t* in_char, char* out_char, int size_needed)
 {
 	memset(out_char, '\0', size_needed);  //clear buffer
-	size_t w_len = wcslen(in_char);  //get length of wchar string
+	size_t w_len = (int)wcslen(in_char);  //get length of wchar string
 	WideCharToMultiByte(CP_ACP, 0, in_char, w_len, out_char, size_needed, NULL, NULL);
 }
