@@ -388,17 +388,18 @@ void WakeRoku::WakeOnLAN()
 
 
 //change made this obsolete, but I'm saving it as it should optimize out anyway and I might want it later
+//I don't think these are used per my comment a line up, but updating to avoid compiler warnings
 int WakeRoku::WCHAR_TO_CHAR(wchar_t* in_char)
 {
-	size_t w_len = (int)wcslen(in_char);  //get length of wchar string
+	int w_len = (int)wcslen(in_char);  //get length of wchar string as an int
 	//get the buffer size needed (+1 for null terminator)
-	return WideCharToMultiByte(CP_ACP, 0, in_char, w_len, NULL, 0, NULL, NULL) + 1;
+	return WideCharToMultiByte(CP_ACP, 0, in_char, w_len, NULL, 0, NULL, NULL) + 1; //line 395
 }
 
 
 void WakeRoku::WCHAR_TO_CHAR(wchar_t* in_char, char* out_char, int size_needed)
 {
 	memset(out_char, '\0', size_needed);  //clear buffer
-	size_t w_len = (int)wcslen(in_char);  //get length of wchar string
-	WideCharToMultiByte(CP_ACP, 0, in_char, w_len, out_char, size_needed, NULL, NULL);
+	int w_len = (int)wcslen(in_char);  //get length of wchar string as an int
+	WideCharToMultiByte(CP_ACP, 0, in_char, w_len, out_char, size_needed, NULL, NULL); //line 403
 }
